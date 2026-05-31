@@ -1,0 +1,63 @@
+﻿site_name: sgin Story Guide
+site_description: 张三和李四的 API 开发日常
+site_url: https://srelige.github.io/sgin-docs/
+repo_url: https://github.com/srelige/sgin-docs
+repo_name: srelige/sgin-docs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+    - search.suggest
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色模式
+    - scheme: slate
+      primary: indigo
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色模式
+
+nav:
+  - 首页: index.md
+  - 故事章节:
+      - 01 手写 CRUD 写到怀疑人生: chapters/01-crud.md
+      - 02 复制只读接口: chapters/02-readonly.md
+      - 03 单 URL 列表接口: chapters/03-apiview.md
+      - 04 reset-password 放哪: chapters/04-extra-actions.md
+      - 05 不是所有接口都进 ViewSet: chapters/05-when-not-viewset.md
+      - 06 上传别塞进默认 CRUD: chapters/06-upload.md
+      - 07 别到处写 if admin: chapters/07-permissions.md
+      - 08 前端分不清 401 和 403: chapters/08-error-semantics.md
+      - 09 分页过滤别手搓: chapters/09-pagination-filtering.md
+      - 10 API Key 不需要 AuthRegistry: chapters/10-custom-auth.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+
+
