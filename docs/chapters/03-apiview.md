@@ -122,10 +122,10 @@ APIView 也可以配置自定义 handler。张三问：“那我什么时候要�
 
 车辆列表后来要求只有运维组可见。张三这次没有进 handler 写判断，而是在 APIView 上组合 middleware。
 
-认证、加载访问控制、用户组判断，仍然属于请求链：
+认证、加载访问控制、用户组判断，仍然属于请求链。默认配置下 APIView 也会先经过登录认证；如果这个单 URL 是公开查询入口，要在注册处显式允许匿名：
 
 ```txt
-Auth
+默认认证或 Auth
 LoadAccess
 RequireAnyGroup
 默认列表逻辑

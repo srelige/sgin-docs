@@ -146,7 +146,7 @@ sgin 不试图把所有工程问题都吞进去。
 
 李四让他先停住：“权限是请求链上的事情，不要埋到每个 CRUD 函数里。”
 
-`ModelViewSet` 支持路由级认证和 middleware。比如一个资源全部需要登录，可以配置 `Auth`；如果还需要加载用户访问控制，再串 `LoadAccess()`、`RequireAnyGroup()` 或 `RequireRoutePermission()`。
+`ModelViewSet` 支持默认登录认证和 middleware。默认配置下资源接口需要登录；如果某个列表或详情要公开，可以显式配置匿名访问。如果项目把全局认证改成默认公开，也可以用 `Auth` 把指定接口重新保护起来。如果还需要加载用户访问控制，再串 `LoadAccess()`、`RequireAnyGroup()` 或 `RequireRoutePermission()`。
 
 这不是本章重点，但张三提前记住了一件事：handler 里越少混入通用横切逻辑，后续越不容易乱。
 

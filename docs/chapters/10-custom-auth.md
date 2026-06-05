@@ -30,13 +30,13 @@ API Key 是 middleware。
 
 张三问：“那 ViewSet 里的 `Auth` 字段是什么？”
 
-李四说，它表示使用 sgin 用户系统配套的 JWT 认证。
+李四说，它表示使用 sgin 用户系统配套的 JWT 认证。默认配置下框架接口已经需要登录；当项目把全局认证改成默认公开时，`Auth` 可以把指定接口重新保护起来。
 
 也就是说，`Auth` 是内置用户系统的便捷开关，不是通用认证注册表。
 
-如果你使用 sgin 的用户登录、access token、refresh token，就可以通过 `Auth` 或 `JWTAuth()` 保护接口。
+如果你使用 sgin 的用户登录、access token、refresh token，就可以通过默认认证、`Auth` 或 `JWTAuth()` 保护接口。
 
-如果你要 API Key，就直接写 Gin middleware。
+如果你要 API Key，就直接写 Gin middleware。默认认证开启时，这类接口还要显式允许匿名跳过内置 JWT，再让自己的 API Key middleware 接管认证。
 
 ## API Key middleware 的形态
 

@@ -28,7 +28,7 @@
 一个常见受保护接口，会经过这样的顺序：
 
 ```txt
-JWTAuth 或 ViewSet Auth
+默认认证 / JWTAuth / ViewSet Auth
 LoadAccess
 RequireAnyGroup / RequireAnyRole / RequireRoutePermission
 handler 或默认 ViewSet 动作
@@ -86,18 +86,20 @@ admin 组是特殊组，通常直接放行。
 
 ## ViewSet 的 Auth 字段
 
-张三问：“如果我在 ViewSet 上写 `Auth: []string{"all"}`，它到底做什么？”
+张三问：“如果现在默认就要登录，那 ViewSet 上的 `Auth` 还做什么？”
 
-李四说，它表示这个 ViewSet 的路由需要使用 sgin 用户系统的 JWT 认证。
+李四说，sgin 的默认配置是 `auth.required=true`，框架注册的接口默认使用用户系统的 JWT 认证。`Auth` 仍然有用：当项目把全局认证改成默认公开时，它可以把某个 ViewSet、APIView 或某些动作重新保护起来。
 
-常见配置有两类：
+接口级认证现在有两类显式覆盖：
 
-- `[]string{"all"}`：保护全部方法。
-- `[]string{"get", "delete"}`：只保护指定 HTTP 方法。
+- `Auth`：显式要求登录。
+- `AllowAnonymous`：显式允许匿名访问。
 
-不配置时，默认公开。
+两者都支持 `all`、HTTP method 和 CRUD action。比如 `all` 表示全部动作，`get` 表示 GET 方法，`list` 表示列表动作。
 
-这只是认证，不等于授权。认证确认身份，授权判断这个身份能不能访问。
+李四提醒张三：“默认需要登录不是业务授权。认证只确认身份，用户登录后能不能访问资源，仍然要由业务的 middleware、权限点或服务逻辑决定。”
+
+登录接口和 refresh 接口是例外。它们必须永远公开，否则用户还没登录就访问不了登录入口。
 
 ## LoadAccess 必须放在授权判断之前
 
@@ -185,7 +187,7 @@ QueryPermissions    收窄列表查询范围
 
 李四让张三写接口前先问：
 
-1. 这个接口是否需要登录？
+1. 这个接口是否要沿用默认登录要求，还是显式公开？
 2. 是否需要加载用户组、角色、权限点？
 3. 权限是固定用户组，还是固定角色？
 4. 是否应该由后台动态配置 method/path 权限？
