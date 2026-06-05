@@ -85,8 +85,11 @@ app.InitTable(&Book{})
 
 ```go
 app.Register(&sgin.ModelViewSet[Book, uint]{
-    Path:  "/books",
-    Model: &Book{},
+    BasePath: "/books",
+    Serializer: sgin.ModelSerializer[Book]{
+        ReadFields:  []string{"id", "title", "author", "status"},
+        WriteFields: []string{"title", "author", "status"},
+    },
 })
 ```
 
@@ -129,7 +132,11 @@ sgin 不试图把所有工程问题都吞进去。
 
 李四说：“这才是你应该扩展的地方。”
 
-普通 CRUD 流程可以交给 `ModelViewSet`，但响应字段、输入字段、列表和详情的形态，可能会因业务不同而变化。sgin 提供 Serializer 扩展点，就是让你在不重写 CRUD 流程的前提下控制输入输出。
+普通 CRUD 流程可以交给 `ModelViewSet`，但响应字段、输入字段、列表和详情的形态，可能会因业务不同而变化。sgin 要求默认数据链路显式配置 Serializer，就是让你在不重写 CRUD 流程的前提下控制输入输出。
+
+李四特意提醒张三：“不要让模型悄悄变成完整请求体和完整响应体。你要么用 `ModelSerializer` 写清楚读字段和写字段，要么显式选择 `FullModelSerializer`，表示你确实接受全量模型读写。”
+
+写入侧也不是静默忽略。假设 `WriteFields` 里只有 `title`、`author`、`status`，请求里传了 `is_admin`、`owner_id` 或其他未声明字段，sgin 会直接返回 400。这样张三马上能知道有人在尝试写非白名单字段，而不是等数据被悄悄污染后再排查。
 
 也就是说，不要为了隐藏字段去复制默认 handler。先考虑 Serializer。
 

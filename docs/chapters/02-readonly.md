@@ -52,8 +52,10 @@ GET /resources/:id
 
 ```go
 app.Register(&sgin.ReadOnlyModelViewSet[Announcement, uint]{
-    Path:  "/announcements",
-    Model: &Announcement{},
+    BasePath: "/announcements",
+    Serializer: sgin.ModelSerializer[Announcement]{
+        ReadFields: []string{"id", "title", "content", "published_at"},
+    },
 })
 ```
 
@@ -74,7 +76,7 @@ GET /announcements/:id
 
 李四说，只读只是限制 HTTP 动作，不代表列表能力变少。
 
-只读资源仍然可以使用分页、搜索、排序、字段过滤、Serializer、认证和 middleware。因为这些能力属于读取链路本身。
+只读资源仍然可以使用分页、搜索、排序、字段过滤、Serializer、认证和 middleware。因为这些能力属于读取链路本身。只读 ViewSet 只需要声明读字段策略，不需要为了不存在的写入口配置 `WriteFields`。
 
 例如公告列表可能需要：
 

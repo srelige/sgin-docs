@@ -46,11 +46,13 @@ sgin 的 `APIView` 可以理解成单路由形态的 ViewSet 能力。
 app.Register(&sgin.APIView[Car, uint]{
     Method: "get",
     Path:   "/cars",
-    Model:  &Car{},
+    Serializer: sgin.ModelSerializer[Car]{
+        ReadFields: []string{"id", "plate_no", "status"},
+    },
 })
 ```
 
-如果没有提供自定义 handler，sgin 会根据 method 和 path 形态推断默认动作。对于 `GET /cars` 这种集合路径，它会走列表逻辑。
+如果没有提供自定义 handler，sgin 会根据 method 和 path 形态推断默认动作。对于 `GET /cars` 这种集合路径，它会走列表逻辑。因为这里复用了默认数据链路，也必须显式声明 Serializer；只读列表只需要读字段策略。
 
 于是张三保留了单 URL 的简洁，又没有丢掉默认列表能力。
 

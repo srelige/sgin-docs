@@ -87,8 +87,11 @@ POST /assets/import
 
 ```go
 app.Register(&sgin.ModelViewSet[User, uint]{
-    Path:  "/users",
-    Model: &User{},
+    BasePath: "/users",
+    Serializer: sgin.ModelSerializer[User]{
+        ReadFields:  []string{"id", "username", "email"},
+        WriteFields: []string{"username", "email"},
+    },
     ExtraActions: []sgin.ExtraAction{
         {
             Method: "post",
