@@ -39,7 +39,7 @@
 | 04 | 重置密码、导出、热门列表到底该放在哪里 | `ExtraActions`、`Detail`、collection action、dispatcher、路由冲突处理 |
 | 05 | 张三想把支付、审批、导入都塞进 ViewSet | ViewSet 的边界、Gin handler + service、流程型接口分层 |
 | 06 | 文件上传被塞进默认 `Create`，JSON 和 multipart 混在一起 | 上传入口设计、`rest.static_dir`、元数据入库、为什么不自动保存文件 |
-| 07 | 每个 handler 都写 `if admin`，权限逻辑开始散落 | `JWTAuth`、`LoadAccess`、用户组、角色、动态路由权限、对象权限和查询权限 |
+| 07 | 每个 handler 都写 `if admin`，权限逻辑开始散落 | `JWTAuth`、`LoadAccess`、用户组、角色、菜单权限、动态路由权限、后端兜底、对象权限和查询权限 |
 | 08 | 前端不知道该跳登录页还是提示无权限 | 401/403 语义、稳定错误码、客户端处理策略、测试边界 |
 | 09 | 列表接口手搓分页、搜索、排序和字段过滤 | `page/page_size`、过滤白名单、操作符过滤、排序控制、为什么暂不做 cursor |
 | 10 | 张三想为 API Key 做 AuthRegistry | Gin middleware 认证扩展、自定义认证如何接入 sgin 权限链 |
