@@ -30,11 +30,16 @@
 
 张三先看配置：
 
-```txt
-admin.path = /sgin-admin
+```yaml
+admin:
+  enabled: true
+  path: /sgin-admin
+  ui: false
 ```
 
-李四说，下面的例子都按这个路径展开。实际项目如果把路径配置成 `/admin`，那接口前缀也跟着变。
+李四说，`enabled` 控制内置管理接口，`path` 控制接口前缀，`ui` 控制是否开启内置极简页面。前后端分离项目通常保持 `ui: false`，由自己的前端调用管理接口；开发期需要临时调试时，再把 `ui` 打开。
+
+下面的例子都按 `/sgin-admin` 展开。实际项目如果把路径配置成 `/admin`，那接口前缀也跟着变。
 
 查看当前权限管理状态：
 
