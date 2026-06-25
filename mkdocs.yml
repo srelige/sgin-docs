@@ -1,4 +1,4 @@
-﻿site_name: sgin Story Guide
+site_name: sgin Story Guide
 site_description: 张三和李四的 API 开发日常
 site_url: https://srelige.github.io/sgin-docs/
 repo_url: https://github.com/srelige/sgin-docs
@@ -42,6 +42,7 @@ nav:
       - 08 前端分不清 401 和 403: chapters/08-error-semantics.md
       - 09 分页过滤别手搓: chapters/09-pagination-filtering.md
       - 10 API Key 不需要 AuthRegistry: chapters/10-custom-auth.md
+      - 11 权限后台不能只会新增: chapters/11-admin-api.md
 
 markdown_extensions:
   - admonition
